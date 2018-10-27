@@ -32,8 +32,8 @@ public class Controller //implements ActionListener
     */
 
     private JudoGame judoGame = new JudoGame();
-    private Timer timerOsaekomi;
     private Timer timerFightTime;
+    private Timer timerOsaekomi;
 
     @FXML private Label whiteOsaekomi;
     @FXML private Label whiteIppon;
@@ -281,44 +281,24 @@ public class Controller //implements ActionListener
     @FXML
     public void mouseClickedWhiteOsaekomi(MouseEvent event) throws InterruptedException // zepsute wyswietlanie !!!
     {
-
         if(event.getButton().equals(MouseButton.PRIMARY))
         {
-            judoGame.getBluePlayer().setStateOsaekomi(true);
-
+            String result = judoGame.onWhiteOsaekomi(true);
             whiteOsaekomi.setTextFill(Color.RED);
-
             timerOsaekomi = new Timer(1000, e ->
             {
-                if(judoGame.getWhitePlayer().isStateOsaekomi())
-                {
-                    judoGame.startWhiteOsaekomi();
+                if (result.equals("wazaari2")) {
+                    whiteIppon.setText("1");
+                    whiteIppon.setTextFill(Color.BLACK);
+                    timerOsaekomi.stop();
+                    whiteOsaekomi.setTextFill(Color.WHITE);
+                }
 
-                    whiteOsaekomi.setText("" + judoGame.getSecondOsaekomi());
-
-                    if(judoGame.getSecondOsaekomi() == 11)
-                    {
-                        whiteWazaari.setText("1");
-
-                        if(judoGame.getWhitePlayer().getScore().getScoreWazaari() == 2)
-                        {
-
-                            whiteIppon.setText("1");
-                            whiteIppon.setTextFill(Color.BLACK);
-                            judoGame.getWhitePlayer().setStateOsaekomi(false);
-                            timerOsaekomi.stop();
-                            whiteOsaekomi.setTextFill(Color.WHITE);
-                        }
-                    }
-
-                    if(judoGame.getSecondOsaekomi() == 21)
-                    {
-                        whiteIppon.setText("1");
-                        whiteIppon.setTextFill(Color.BLACK);
-                        judoGame.getWhitePlayer().setStateOsaekomi(false);
-                        timerOsaekomi.stop();
-                        whiteOsaekomi.setTextFill(Color.WHITE);
-                    }
+                if(result.equals("osaekomi21")) {
+                    timerOsaekomi.stop();
+                    whiteOsaekomi.setTextFill(Color.WHITE);
+                    whiteIppon.setText("1");
+                    whiteIppon.setTextFill(Color.BLACK);
                 }
             });
 
@@ -328,15 +308,9 @@ public class Controller //implements ActionListener
 
         else if(event.getButton().equals(MouseButton.SECONDARY))
         {
-
-            judoGame.getWhitePlayer().setStateOsaekomi(false);
+            String result = judoGame.onWhiteOsaekomi(false);
             timerOsaekomi.stop();
-            judoGame.stopWhiteOsaekomi();
-
             whiteOsaekomi.setTextFill(Color.WHITE);
-            whiteOsaekomi.setTextFill(Color.WHITE);
-            judoGame.stopWhiteOsaekomi();
-
         }
     }
 

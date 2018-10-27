@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TablicaJudo2.iml" filepath="$PROJECT_DIR$/TablicaJudo2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JudoRefactore.iml" filepath="$PROJECT_DIR$/JudoRefactore.iml" />
     </modules>
   </component>
 </project>
